@@ -18,3 +18,10 @@ test('Writing pixels to a canvas', () => {
   c.write_pixel(2, 3, red);
   expect(c.pixel_at(2, 3)).toEqual(red);
 });
+
+test('Constructing the PPM header', () => {
+  let c = canvas(5, 3);
+  let ppm = "P3\n5 3\n255";
+  // lines 1-3 of ppm
+  expect(c.canvas_to_ppm().split('\n').slice(0,3).join('\n')).toEqual(ppm);
+})
