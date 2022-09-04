@@ -24,4 +24,17 @@ test('Constructing the PPM header', () => {
   let ppm = "P3\n5 3\n255";
   // lines 1-3 of ppm
   expect(c.canvas_to_ppm().split('\n').slice(0,3).join('\n')).toEqual(ppm);
+});
+
+test('Constructing the PPM pixel data', () => {
+  let c = canvas(5, 3);
+  let c1 = color(1.5, 0, 0);
+  let c2 = color(0, 0.5, 0);
+  let c3 = color(-0.5, 0, 1);
+  c.write_pixel(0, 0, c1)
+  c.write_pixel(2, 1, c2)
+  c.write_pixel(4, 2, c3)
+  let ppm = c.canvas_to_ppm();
+  let expected_ppm = "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255";
+  expect(ppm.split('\n').slice(3, 6).join('\n')).toEqual(expected_ppm);
 })
