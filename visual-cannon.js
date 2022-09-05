@@ -1,5 +1,7 @@
-import { Point } from './point.js';
-import { Vector } from './vector.js';
+import { point } from './point.js';
+import { vector } from './vector.js';
+import { canvas } from './canvas.js';
+import { color } from './color.js';
 
 class Projectile {
   position; //point
@@ -29,16 +31,25 @@ function tick(env, proj) {
 
 // projectile starts one unit above the origin.
 // velocity is normalized to 1 unit/tick
-let p = new Projectile(new Point(0, 1, 0), new Vector(1, 20, 0).normalize());
+let start = point(0, 1, 0);
+let velocity = vector(1, 1.8, 0).normalize().multiplyBy(11.25) ;
+let p = new Projectile(start, velocity);
 
 // gravity -0.1 unit/tick, and wind is -0.01 unit/tick
-let e = new Environment(new Vector(0, -0.1, 0), new Vector(-0.01, 0, 0));
+let gravity = vector(0, -0.1, 0);
+let wind = vector(-0.01, 0, 0);
+let e = new Environment(gravity, wind);
 
-let t = 0;
-console.log(t, p.position.y);
+let c = canvas(900, 500);
+
+let x = 0;
+let y = 500 - Math.round(p.position.y);
+c.write_pixel(x, y, color(1, 0, 0));
 while(p.position.y >= 0) {
   p = tick(e, p);
-  t += 1;
-  console.log(t, p.position.y);
+  x += 1;
+  y = 500 - Math.round(p.position.y);
+  c.write_pixel(x, y, color(1, 0, 0));
 }
 
+console.log(c.canvas_to_ppm())
