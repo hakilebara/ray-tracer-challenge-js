@@ -37,4 +37,16 @@ test('Constructing the PPM pixel data', () => {
   let ppm = c.canvas_to_ppm();
   let expected_ppm = "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255";
   expect(ppm.split('\n').slice(3, 6).join('\n')).toEqual(expected_ppm);
-})
+});
+
+test('Splitting long lines in PPM files', () => {
+  let c = canvas(10, 2);
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 2; j++) {
+      c.write_pixel(i, j, color(1, 0.8, 0.6));
+    }
+  }
+  let ppm = c.canvas_to_ppm();
+  let expected_ppm = "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153";
+  expect(ppm.split('\n').slice(3, 7).join('\n')).toEqual(expected_ppm);
+});

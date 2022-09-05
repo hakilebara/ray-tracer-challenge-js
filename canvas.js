@@ -30,7 +30,7 @@ class Canvas {
     return Math.min(Math.max(c, 0), 255);
   }
 
-  color_to_ppm_pixel(color) {
+  color_to_ppm_string(color) {
     let red = this.rgb_clamp(Math.round(color.red * 255))
     let green = this.rgb_clamp(Math.round(color.green * 255));
     let blue = this.rgb_clamp(Math.round(color.blue * 255));
@@ -40,11 +40,25 @@ class Canvas {
 
   canvas_to_ppm() {
     let ppm_string = `P3\n${this.width} ${this.height}\n255`;
+
     for (let j = 0; j < this.height; j++) {
-      let line = '';
+      let rgb_pixel_arr = [];
       for (let i = 0; i < this.width; i++) {
-        line += this.color_to_ppm_pixel(this.grid[i][j]) + ' ';
+        rgb_pixel_arr.push(...this.color_to_ppm_string(this.grid[i][j]).split(' '));
       }
+
+      let line = '';
+      let counter = 0;
+      rgb_pixel_arr.reduce((previous, current) => { // makes sure a line < 70 characters
+        if (counter > 70) {
+          line = line.replace(/\s+$/, ''); // remove empty space at the end of the line
+          line += '\n';
+          counter = 0;
+        }
+        line += current + ' ';
+        counter += (current + ' ').length;
+      }, line);
+
       line = line.replace(/\s+$/, ''); // remove empty space at the end of the line
       ppm_string = ppm_string.concat('\n', line);
     }
