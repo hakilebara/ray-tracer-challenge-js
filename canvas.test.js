@@ -50,3 +50,9 @@ test('Splitting long lines in PPM files', () => {
   let expected_ppm = "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153";
   expect(ppm.split('\n').slice(3, 7).join('\n')).toEqual(expected_ppm);
 });
+
+test('PPM files are terminated by a newline character', () => {
+  let c = canvas(5, 3);
+  let ppm = c.canvas_to_ppm();
+  expect(ppm.slice(-1)).toBe('\n');
+});

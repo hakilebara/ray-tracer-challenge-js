@@ -62,7 +62,7 @@ class Canvas {
       line = line.replace(/\s+$/, ''); // remove empty space at the end of the line
       ppm_string = ppm_string.concat('\n', line);
     }
-    return ppm_string;
+    return ppm_string + '\n';
   }
 }
 
