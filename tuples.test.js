@@ -155,7 +155,6 @@ test('Adding colors', () => {
 test('Substracting colors', () => {
   let c1 = color(0.9, 0.6, 0.75);
   let c2 = color(0.5, 0.1, 0.25);
-  console.log(c1.substract(c2))
   expect(c1.substract(c2)).toEqual(color(0.4, 0.5, 0.5));
 });
 
