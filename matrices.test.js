@@ -39,3 +39,39 @@ test('A 3x3 matrix ought to be representable', () => {
   expect(M[1][1]).toBe(-2);
   expect(M[2][2]).toBe(1);
 });
+
+test('Matrix equality with identical matrices', () => {
+  let A = matrix(
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 8, 7, 6],
+    [5, 4, 3, 2],
+  );
+
+  let B = matrix(
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 8, 7, 6],
+    [5, 4, 3, 2],
+  );
+
+  expect(A).toEqual(B);
+});
+
+test('Matrix equality with different matrics', () => {
+  let A = matrix(
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 8, 7, 6],
+    [5, 4, 3, 2],
+  );
+
+  let B = matrix(
+    [2, 3, 4, 5],
+    [6, 7, 8, 9],
+    [8, 7, 6, 5],
+    [4, 3, 2, 1],
+  );
+
+  expect(A).not.toEqual(B);
+})
