@@ -1,4 +1,5 @@
 import { matrix } from './matrix.js';
+import { tuple } from './tuple.js';
 
 test('Constructing and inspecting a 4x4 matrix', () => {
   let M = matrix(
@@ -97,4 +98,15 @@ test('Multiplying two matrices', () => {
     [40, 58, 110, 102],
     [16, 26,  46,  42],
   ));
+});
+
+test('A matrix multiplied by a tuple', () => {
+  let A = matrix(
+    [1, 2, 3, 4],
+    [2, 4, 4, 2],
+    [8, 6, 4, 1],
+    [0, 0, 0, 1],
+  );
+  let b = tuple(1, 2, 3, 1);
+  expect(A.multiplyBy(b)).toEqual(tuple(18, 24, 33, 1));
 })

@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { Tuple, tuple } from './tuple.js';
 
 export class Matrix extends Array {
 
@@ -14,24 +15,36 @@ export class Matrix extends Array {
     );
   }
 
-  multiplyBy(matrix) {
-    let M = new Matrix (
-      [0,0,0,0],
-      [0,0,0,0],
-      [0,0,0,0],
-      [0,0,0,0]
-    );
+  multiplyBy(object) {
+    if (object instanceof Tuple) {
+      let t = tuple(0, 0, 0, 0);
 
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        M[i][j] = this[i][0] * matrix[0][j] +
-                  this[i][1] * matrix[1][j] +
-                  this[i][2] * matrix[2][j] +
-                  this[i][3] * matrix[3][j];
+      for (let i = 0; i < 4; i++) {
+          t[i] = this[i][0] * object[0] +
+                    this[i][1] * object[1] +
+                    this[i][2] * object[2] +
+                    this[i][3] * object[3];
       }
+      return t;
     }
+    else {
+      let M = new Matrix (
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
+      );
 
-    return M;
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+          M[i][j] = this[i][0] * object[0][j] +
+                    this[i][1] * object[1][j] +
+                    this[i][2] * object[2][j] +
+                    this[i][3] * object[3][j];
+        }
+      }
+      return M;
+    }
   }
 }
 
