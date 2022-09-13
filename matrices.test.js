@@ -120,3 +120,8 @@ test('Multiplying a matrix by the identity matrix', () => {
   );
   expect(A.multiplyBy(identity_matrix)).toEqual(A);
 });
+
+test('Multiplying the identity matrix by a tuple', () => {
+  let A = tuple(1, 2, 3, 4);
+  expect(identity_matrix.multiplyBy(A)).toEqual(A);
+});
