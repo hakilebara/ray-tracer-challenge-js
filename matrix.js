@@ -48,6 +48,13 @@ export class Matrix extends Array {
   }
 }
 
+export const identity_matrix = new Matrix(
+  [1,0,0,0],
+  [0,1,0,0],
+  [0,0,1,0],
+  [0,0,0,1]
+)
+
 export function matrix(...params) {
   return new Matrix(...params);
 }

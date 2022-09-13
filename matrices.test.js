@@ -1,4 +1,4 @@
-import { matrix } from './matrix.js';
+import { identity_matrix, matrix } from './matrix.js';
 import { tuple } from './tuple.js';
 
 test('Constructing and inspecting a 4x4 matrix', () => {
@@ -109,4 +109,14 @@ test('A matrix multiplied by a tuple', () => {
   );
   let b = tuple(1, 2, 3, 1);
   expect(A.multiplyBy(b)).toEqual(tuple(18, 24, 33, 1));
-})
+});
+
+test('Multiplying a matrix by the identity matrix', () => {
+  let A = matrix(
+    [0, 1,  2,  4],
+    [1, 2,  4,  8],
+    [2, 4,  8, 16],
+    [4, 8, 16, 32],
+  );
+  expect(A.multiplyBy(identity_matrix)).toEqual(A);
+});
