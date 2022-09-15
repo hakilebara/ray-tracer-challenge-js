@@ -48,6 +48,23 @@ export class Matrix extends Array {
   }
 }
 
+export function transpose(matrix) {
+  let M = new Matrix (
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
+  );
+
+  for (let i = 0; i < 4; i++) {
+    M[0][i] = matrix[i][0];
+    M[1][i] = matrix[i][1];
+    M[2][i] = matrix[i][2];
+    M[3][i] = matrix[i][3];
+  }
+  return M;
+}
+
 export const identity_matrix = new Matrix(
   [1,0,0,0],
   [0,1,0,0],
