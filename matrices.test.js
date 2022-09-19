@@ -1,4 +1,4 @@
-import { identity_matrix, matrix, transpose } from './matrix.js';
+import { determinant, identity_matrix, matrix, submatrix, transpose } from './matrix.js';
 import { tuple } from './tuple.js';
 
 test('Constructing and inspecting a 4x4 matrix', () => {
@@ -145,4 +145,41 @@ test('Transposing a matrix', () => {
 
 test('Transposing the identity matrix', () => {
   expect(transpose(identity_matrix)).toEqual(identity_matrix);
+});
+
+test('Calculating the determinant of a 2x2 matrix', () => {
+  let A = matrix(
+    [ 1, 5],
+    [-3, 2]
+  );
+  expect(determinant(A)).toBe(17);
+});
+
+test('A submatrix of a 3x3 matrix is a 2x2 matrix', () => {
+  let A = matrix(
+    [ 1, 5,  0],
+    [-3, 2,  7],
+    [ 0, 6, -3]
+  );
+
+  expect(submatrix(A, 0, 2))
+    .toEqual(matrix(
+      [-3, 2],
+      [ 0, 6]
+    ));
+});
+
+test('A submatrix of a 4x4 matrix is a 3x3 matrix', () => {
+  let A = matrix(
+    [-6, 1,  1, 6],
+    [-8, 5,  8, 6],
+    [-1, 0,  8, 2],
+    [-7, 1, -1, 1]
+  );
+  expect(submatrix(A, 2, 1))
+    .toEqual(matrix(
+      [-6,  1, 6],
+      [-8,  8, 6],
+      [-7, -1, 1]
+    ));
 });

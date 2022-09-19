@@ -65,6 +65,25 @@ export function transpose(matrix) {
   return M;
 }
 
+/**
+ *
+ * determinant( [a, b],
+ *              [c, d] ) = a*d - b*c
+ *
+ */
+export function determinant(matrix) {
+  return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+}
+
+export function submatrix(matrix, row, column) {
+  let subm = [...matrix];
+  subm.splice(row, 1);
+  for (let i = 0; i < subm.length; i++) {
+    subm[i].splice(column, 1);
+  }
+  return subm;
+}
+
 export const identity_matrix = new Matrix(
   [1,0,0,0],
   [0,1,0,0],
