@@ -1,4 +1,4 @@
-import { determinant, identity_matrix, matrix, submatrix, transpose } from './matrix.js';
+import { determinant, identity_matrix, matrix, minor, submatrix, transpose } from './matrix.js';
 import { tuple } from './tuple.js';
 
 test('Constructing and inspecting a 4x4 matrix', () => {
@@ -182,4 +182,15 @@ test('A submatrix of a 4x4 matrix is a 3x3 matrix', () => {
       [-8,  8, 6],
       [-7, -1, 1]
     ));
+});
+
+test('Calculating the minaor of a 3x3 matrix', () => {
+  let A = matrix(
+    [3,  5,  0],
+    [2, -1, -7],
+    [6, -1,  5]
+  );
+  let B = submatrix(A, 1, 0);
+  expect(determinant(B)).toBe(25);
+  expect(minor(A, 1, 0)).toBe(25);
 });

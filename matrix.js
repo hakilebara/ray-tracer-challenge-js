@@ -94,6 +94,10 @@ export const identity_matrix = new Matrix(
   [0,0,0,1]
 )
 
+export function minor(matrix, row, column) {
+  return determinant(submatrix(matrix, row, column));
+}
+
 export function matrix(...params) {
   return new Matrix(...params);
 }
