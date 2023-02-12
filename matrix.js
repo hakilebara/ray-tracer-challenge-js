@@ -76,7 +76,7 @@ export function determinant(matrix) {
 }
 
 export function submatrix(matrix, row, column) {
-  let subm = [...matrix];
+  const subm = copy(matrix);
   subm.splice(row, 1);
   for (let i = 0; i < subm.length; i++) {
     subm[i].splice(column, 1);
@@ -84,6 +84,9 @@ export function submatrix(matrix, row, column) {
   return subm;
 }
 
+export function copy(matrix) {
+  return JSON.parse(JSON.stringify(matrix));
+}
 export const identity_matrix = new Matrix(
   [1,0,0,0],
   [0,1,0,0],
