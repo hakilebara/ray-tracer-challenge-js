@@ -7,7 +7,6 @@ export class Matrix extends Array {
   constructor(...params) {
     super();
     for (let i = 0; i < params.length; i++) {
-      assert(params[i] instanceof Array, "Matrix only takes arrays as params");
       this[i] = params[i];
     }
     assert(
