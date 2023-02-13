@@ -206,3 +206,29 @@ test('Calculating the cofactor of a 3x3 matrix', () => {
   expect(minor(A, 1, 0)).toBe(25);
   expect(cofactor(A, 1, 0)).toBe(-25);
 });
+
+test('Calculating the determinant of a 3x3 matrix', () => {
+  let A = matrix(
+    [ 1,  2,  6],
+    [-5,  8, -4],
+    [ 2,  6,  4]
+  );
+  expect(cofactor(A, 0, 0)).toBe(56);
+  expect(cofactor(A, 0, 1)).toBe(12);
+  expect(cofactor(A, 0, 2)).toBe(-46);
+  expect(determinant(A, 0, 0)).toBe(-196);
+});
+
+test('Calculating the determinant of a 4x4 matrix', () => {
+  let A = matrix(
+    [-2, -8,  3,  5],
+    [-3,  1,  7,  3],
+    [ 1,  2, -9,  6],
+    [-6,  7,  7, -9]
+  );
+  expect(cofactor(A, 0, 0)).toBe(690);
+  expect(cofactor(A, 0, 1)).toBe(447);
+  expect(cofactor(A, 0, 2)).toBe(210);
+  expect(cofactor(A, 0, 3)).toBe(51);
+  expect(determinant(A)).toBe(-4071);
+});

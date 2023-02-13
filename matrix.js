@@ -65,14 +65,24 @@ export function transpose(matrix) {
   return M;
 }
 
-/**
- *
- * determinant( [a, b],
- *              [c, d] ) = a*d - b*c
- *
- */
 export function determinant(matrix) {
-  return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+  let size = matrix[0].length;
+  if (size === 2)
+    // To find the determinanat of a 2x2 matrix
+    // determinant( [a, b],
+    //              [c, d] ) = a*d - b*c
+    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+  if (size > 2) {
+    // To find the determinant of larger matrices,
+    // take any one of the rows or columns, then
+    // for each of the elements multiply the element
+    // by its cofactor and add the products together
+    let detm = 0;
+    for (let i = 0; i < size; i++) {
+      detm += matrix[0][i] * cofactor(matrix, 0, i);
+    }
+    return detm;
+  }
 }
 
 export function submatrix(matrix, row, column) {
@@ -98,11 +108,11 @@ export function minor(matrix, row, column) {
   return determinant(submatrix(matrix, row, column));
 }
 
-export function matrix(...params) {
-  return new Matrix(...params);
-}
-
 export function cofactor(matrix, row, column) {
   let sign = (row + column) % 2 ? -1 : 1; // if row + column is an odd number, negate the minor
   return minor(matrix, row, column) * sign;
+}
+
+export function matrix(...params) {
+  return new Matrix(...params);
 }
