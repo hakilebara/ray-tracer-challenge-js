@@ -1,4 +1,4 @@
-import { cofactor, determinant, identity_matrix, matrix, minor, submatrix, transpose } from './matrix.js';
+import { cofactor, determinant, identity_matrix, isInvertible, matrix, minor, submatrix, transpose } from './matrix.js';
 import { tuple } from './tuple.js';
 
 test('Constructing and inspecting a 4x4 matrix', () => {
@@ -231,4 +231,26 @@ test('Calculating the determinant of a 4x4 matrix', () => {
   expect(cofactor(A, 0, 2)).toBe(210);
   expect(cofactor(A, 0, 3)).toBe(51);
   expect(determinant(A)).toBe(-4071);
+});
+
+test('Testing an invertible matrix for invertibility', () => {
+  let A = matrix(
+    [ 6,  4,  4,  4],
+    [ 5,  5,  7,  6],
+    [ 4, -9,  3, -7],
+    [ 9,  1,  7, -6]
+  );
+  expect(determinant(A)).toBe(-2120);
+  expect(isInvertible(A)).toBe(true);
+});
+
+test('Testing a noninvertible matrix for invertibility', () => {
+  let A = matrix(
+    [-4,  2, -2, -3],
+    [ 9,  6,  2,  6],
+    [ 0, -5,  1, -5],
+    [ 0,  0,  0,  0]
+  );
+  expect(determinant(A)).toBe(0);
+  expect(isInvertible(A)).toBe(false);
 });

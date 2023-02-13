@@ -113,6 +113,11 @@ export function cofactor(matrix, row, column) {
   return minor(matrix, row, column) * sign;
 }
 
+export function isInvertible(matrix) {
+  // if its determinant is 0 a matrix is not invertible
+  return determinant(matrix) === 0 ? false : true;
+}
+
 export function matrix(...params) {
   return new Matrix(...params);
 }
