@@ -101,3 +101,8 @@ export function minor(matrix, row, column) {
 export function matrix(...params) {
   return new Matrix(...params);
 }
+
+export function cofactor(matrix, row, column) {
+  let sign = (row + column) % 2 ? -1 : 1; // if row + column is an odd number, negate the minor
+  return minor(matrix, row, column) * sign;
+}
