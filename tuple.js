@@ -1,7 +1,4 @@
-const EPSILON = 0.00001;
-export function equal(a, b) {
-  return (Math.abs(a - b) < EPSILON) ? true : false;
-}
+import { isEqual } from './utils.js';
 
 export class Tuple extends Array {
   get x() { return this[0] }
@@ -47,7 +44,7 @@ export class Tuple extends Array {
   }
 
   equal(tuple) {
-    return this.every((element, index) => equal(element, tuple[index]));
+    return this.every((element, index) => isEqual(element, tuple[index]));
   }
 }
 
