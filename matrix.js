@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import { Tuple, tuple } from './tuple.js';
+import { isEqual } from './utils.js';
 
 export class Matrix extends Array {
 
@@ -116,6 +117,32 @@ export function cofactor(matrix, row, column) {
 export function isInvertible(matrix) {
   // if its determinant is 0 a matrix is not invertible
   return determinant(matrix) === 0 ? false : true;
+}
+
+export function inverse(matrix) {
+  if (!isInvertible(matrix)) return;
+  let inverted_matrix = copy(matrix);
+  for (let row = 0; row < matrix.length; row++) {
+    for (let col = 0; col < matrix[row].length; col++) {
+      let cof = cofactor(matrix, row, col);
+      // note that [col][row] here instead of [row][col]
+      // transposes the matrix
+      inverted_matrix[col][row] = cof / determinant(matrix);
+    }
+  }
+  return inverted_matrix;
+}
+
+export function areMatrixEqual(m1, m2) {
+  if (m1.length != m2.length) return false;
+  if (m1[0].length != m2[0].length) return false;
+
+  for (let row = 0; row < m1.length; row++) {
+    for (let col = 0; col < m1[row].length; col++) {
+      if (!isEqual(m1[row][col], m2[row][col])) return false;
+    }
+  }
+  return true;
 }
 
 export function matrix(...params) {
