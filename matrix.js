@@ -96,8 +96,10 @@ export function submatrix(matrix, row, column) {
 }
 
 export function copy(matrix) {
-  return JSON.parse(JSON.stringify(matrix));
+  let deepCopy = JSON.parse(JSON.stringify(matrix));
+  return new Matrix(...deepCopy);
 }
+
 export const identity_matrix = new Matrix(
   [1,0,0,0],
   [0,1,0,0],
