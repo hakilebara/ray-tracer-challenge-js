@@ -155,6 +155,15 @@ export function translation(x, y, z) {
   );
 }
 
+export function scaling(x, y, z) {
+  return matrix(
+    [x, 0, 0, 0],
+    [0, y, 0, 0],
+    [0, 0, z, 0],
+    [0, 0, 0, 1],
+  );
+}
+
 export function matrix(...params) {
   return new Matrix(...params);
 }
