@@ -1,6 +1,6 @@
 import { tuple } from './tuple.js';
 import { point } from './point.js';
-import { vector } from './vector.js';
+import { dot, vector } from './vector.js';
 import { color } from './color.js';
 
 test('A tuple with w=1.0 is a point', () => {
@@ -129,7 +129,7 @@ test('The magnitude of a normalized vector', () => {
 test('The dot product of two tuples', () => {
   let a = vector(1, 2, 3);
   let b = vector(2, 3, 4);
-  expect(a.dot(b)).toBe(20);
+  expect(dot(a, b)).toBe(20);
 });
 
 test('The cross product of two vectors', () => {

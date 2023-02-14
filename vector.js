@@ -11,13 +11,6 @@ export class Vector extends Tuple {
     );
   }
 
-  dot(v) {
-    return this.x * v.x +
-           this.y * v.y +
-           this.z * v.z +
-           this.w * v.w
-  } 
-
   cross(v) {
     return vector(
       this.y * v.z - this.z * v.y,
@@ -25,6 +18,13 @@ export class Vector extends Tuple {
       this.x * v.y - this.y * v.x
     );
   }
+}
+
+export function dot(v1, v2) {
+  return v1.x * v2.x +
+         v1.y * v2.y +
+         v1.z * v2.z +
+         v1.w * v2.w;
 }
 
 export function vector(x, y, z, w) {
