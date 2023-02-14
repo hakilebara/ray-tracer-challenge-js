@@ -191,6 +191,15 @@ export function rotation_z(radians) {
   );
 }
 
+export function shearing(xy, xz, yx, yz, zx, zy) {
+  return matrix(
+    [1, xy, xz, 0],
+    [yx, 1, yz, 0],
+    [zx, zy, 1, 0],
+    [0,  0,  0, 1]
+  );
+}
+
 export function matrix(...params) {
   return new Matrix(...params);
 }

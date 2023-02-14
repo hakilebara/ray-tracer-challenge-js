@@ -1,5 +1,5 @@
 import { point } from './point.js';
-import { inverse, translation, scaling, rotation_x, rotation_y, rotation_z } from './matrix.js';
+import { inverse, translation, scaling, rotation_x, rotation_y, rotation_z, shearing } from './matrix.js';
 import { vector } from './vector.js';
 
 test('Multiplying by a translation matrix', () => {
@@ -118,3 +118,97 @@ test('Rotating a point around the z axis', () => {
     .equal(point(-1, 0, 0))
   ).toBe(true);
 });
+
+test('A shearing transformation moves x in proportion to y', () => {
+  let transform = shearing(1, 0, 0, 0, 0, 0);
+  let p = point(2, 3, 4);
+  expect(
+    transform
+    .multiplyBy(p)
+    .equal(point(5, 3, 4))
+  ).toBe(true);
+});
+
+test('A shearing transformation moves x in proportion to z', () => {
+  let transform = shearing(0, 1, 0, 0, 0, 0);
+  let p = point(2, 3, 4);
+  expect(
+    transform
+    .multiplyBy(p)
+    .equal(point(6, 3, 4))
+  ).toBe(true);
+});
+
+test('A shearing transformation moves y in proportion to x', () => {
+  let transform = shearing(0, 0, 1, 0, 0, 0);
+  let p = point(2, 3, 4);
+  expect(
+    transform
+    .multiplyBy(p)
+    .equal(point(2, 5, 4))
+  ).toBe(true);
+});
+
+test('A shearing transformation moves y in proportion to z', () => {
+  let transform = shearing(0, 0, 0, 1, 0, 0);
+  let p = point(2, 3, 4);
+  expect(
+    transform
+    .multiplyBy(p)
+    .equal(point(2, 7, 4))
+  ).toBe(true);
+});
+
+test('A shearing transformation moves z in proportion to x', () => {
+  let transform = shearing(0, 0, 0, 0, 1, 0);
+  let p = point(2, 3, 4);
+  expect(
+    transform
+    .multiplyBy(p)
+    .equal(point(2, 3, 6))
+  ).toBe(true);
+});
+
+test('A shearing transformation moves z in proportion to y', () => {
+  let transform = shearing(0, 0, 0, 0, 0, 1);
+  let p = point(2, 3, 4);
+  expect(
+    transform
+    .multiplyBy(p)
+    .equal(point(2, 3, 7))
+  ).toBe(true);
+});
+
+test('Individual transformations are applied in sequence', () => {
+  let p = point(1, 0, 1);
+  let A = rotation_x(Math.PI / 2);
+  let B = scaling(5, 5, 5);
+  let C = translation(10, 5, 7);
+
+  //apply rotation first
+  let p2 = A.multiplyBy(p);
+  expect(
+    p2.equal(point(1, -1, 0))
+  ).toBe(true);
+  // then apply scaling
+  let p3 = B.multiplyBy(p2);
+  expect(
+    p3.equal(point(5, -5, 0))
+  ).toBe(true);
+  // then apply translation
+  let p4 = C.multiplyBy(p3);
+  expect(
+    p4.equal(point(15, 0, 7))
+  ).toBe(true);
+});
+
+test('Chained transformations must be applied in reverse order', () => {
+  let p = point(1, 0, 1);
+  let A = rotation_x(Math.PI / 2);
+  let B = scaling(5, 5, 5);
+  let C = translation(10, 5, 7);
+  let T = C.multiplyBy(B).multiplyBy(A);
+  expect(
+    T.multiplyBy(p).equal(point(15, 0, 7))
+  ).toBe(true);
+})
