@@ -1,5 +1,5 @@
 import { point } from './point.js';
-import { Matrix, inverse, translation, scaling } from './matrix.js';
+import { inverse, translation, scaling, rotation_x, rotation_y, rotation_z } from './matrix.js';
 import { vector } from './vector.js';
 
 test('Multiplying by a translation matrix', () => {
@@ -47,4 +47,74 @@ test('Reflection is scaling by a negative value', () => {
   let transform = scaling(-1, 1, 1);
   let p = point(2, 3, 4);
   expect(transform.multiplyBy(p)).toEqual(point(-2, 3, 4));
-})
+});
+
+test('Rotating a point around the x axis', () => {
+  let p = point(0, 1, 0);
+  let half_quarter = rotation_x(Math.PI / 4);
+  let full_quarter = rotation_x(Math.PI / 2);
+  expect(
+    half_quarter
+    .multiplyBy(p)
+    .equal(
+      point(0, Math.sqrt(2) / 2, Math.sqrt(2) / 2)
+    )
+  ).toBe(true);
+
+  expect(
+    full_quarter
+    .multiplyBy(p)
+    .equal(point(0, 0, 1))
+  ).toBe(true);
+});
+
+test('The inverse of an x-rotation rotates in the opposite direction', () => {
+  let p = point(0, 1, 0);
+  let half_quarter = rotation_x(Math.PI / 4);
+  let inv = inverse(half_quarter);
+  expect(
+    inv
+    .multiplyBy(p)
+    .equal(
+      point(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2)
+    )
+  ).toBe(true);
+});
+
+test('Rotating a point around the y axis', () => {
+  let p = point(0, 0, 1);
+  let half_quarter = rotation_y(Math.PI / 4);
+  let full_quarter = rotation_y(Math.PI / 2);
+  expect(
+    half_quarter
+    .multiplyBy(p)
+    .equal(
+      point(Math.sqrt(2) / 2, 0, Math.sqrt(2) / 2)
+    )
+  ).toBe(true);
+
+  expect(
+    full_quarter
+    .multiplyBy(p)
+    .equal(point(1, 0, 0))
+  ).toBe(true);
+});
+
+test('Rotating a point around the z axis', () => {
+  let p = point(0, 1, 0);
+  let half_quarter = rotation_z(Math.PI / 4);
+  let full_quarter = rotation_z(Math.PI / 2);
+  expect(
+    half_quarter
+    .multiplyBy(p)
+    .equal(
+      point(-Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0)
+    )
+  ).toBe(true);
+
+  expect(
+    full_quarter
+    .multiplyBy(p)
+    .equal(point(-1, 0, 0))
+  ).toBe(true);
+});

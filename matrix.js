@@ -164,6 +164,33 @@ export function scaling(x, y, z) {
   );
 }
 
+export function rotation_x(radians) {
+  return matrix(
+    [1, 0,                 0,                  0],
+    [0, Math.cos(radians), -Math.sin(radians), 0],
+    [0, Math.sin(radians), Math.cos(radians),  0],
+    [0, 0,                 0,                  1],
+  );
+}
+
+export function rotation_y(radians) {
+  return matrix(
+    [Math.cos(radians),  0, Math.sin(radians), 0],
+    [0,                  1, 0,                 0],
+    [-Math.sin(radians), 0, Math.cos(radians), 0],
+    [0,                  0, 0,                 1]
+  );
+}
+
+export function rotation_z(radians) {
+  return matrix(
+    [Math.cos(radians), -Math.sin(radians), 0, 0],
+    [Math.sin(radians),  Math.cos(radians), 0, 0],
+    [0,                  0,                 1, 0],
+    [0,                  0,                 0, 1]
+  );
+}
+
 export function matrix(...params) {
   return new Matrix(...params);
 }
