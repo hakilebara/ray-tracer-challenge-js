@@ -23,8 +23,6 @@ export function position(ray, t) {
   return ray.origin.add(ray.direction.multiplyBy(t));
 }
 
-export function sphere() { return {} }
-
 export function intersects(sphere, ray) {
   // the vector from the sphere center to the ray origin
   // remember: the sphere is centered at the world origin
