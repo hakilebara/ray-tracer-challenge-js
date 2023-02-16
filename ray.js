@@ -11,10 +11,6 @@ export class Ray {
   }
 }
 
-export function ray(...params) {
-  return new Ray(...params);
-}
-
 export function position(ray, t) {
   // to find the position, you multiply the ray's direction by t
   // to find the total distance travaled, and then add that to the
@@ -39,4 +35,14 @@ export function intersects(sphere, ray) {
   let t2 = (-b + Math.sqrt(discriminant)) / (2 * a);
 
   return t1 < t2 ? [t1, t2] : [t2, t2];
+}
+
+export function transform(ray, matrix) {
+  let origin = matrix.multiplyBy(ray.origin);
+  let direction = matrix.multiplyBy(ray.direction);
+  return new Ray(origin, direction);
+}
+
+export function ray(...params) {
+  return new Ray(...params);
 }
