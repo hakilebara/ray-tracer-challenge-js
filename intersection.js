@@ -8,6 +8,14 @@ export class Intersection {
   }
 }
 
+export function intersections(...params) {
+  return params.sort((a, b) => a.t - b.t);
+}
+
+export function hit(intersections) {
+  return intersections.find(i => i.t > 0);
+}
+
 export function intersection(...params) {
   return new Intersection(...params);
 }
