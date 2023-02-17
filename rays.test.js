@@ -30,4 +30,4 @@ test('Scaling a ray', () => {
   let r2 = transform(r, m);
   expect(r2.origin).toEqual(point(2, 6, 12));
   expect(r2.direction).toEqual(vector(0, 3, 0));
-})
+});

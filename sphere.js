@@ -1,3 +1,13 @@
+import { identity_matrix } from './matrix.js';
+
+export class Sphere {
+  transform = identity_matrix;
+}
+
+export function set_transform(s, t) {
+  s.transform = t;
+}
+
 export function sphere() {
-  return Math.floor(Math.random() * 10);
+  return new Sphere();
 }

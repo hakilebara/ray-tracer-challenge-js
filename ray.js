@@ -1,5 +1,7 @@
 import { point } from './point.js';
 import { dot } from './vector.js';
+import { intersection } from './intersection.js';
+import { inverse } from './matrix.js';
 
 export class Ray {
   origin; // point
@@ -19,13 +21,16 @@ export function position(ray, t) {
   return ray.origin.add(ray.direction.multiplyBy(t));
 }
 
-export function intersects(sphere, ray) {
+export function intersect(sphere, ray) {
+  let ray2 = transform(ray, inverse(sphere.transform));
+
   // the vector from the sphere center to the ray origin
   // remember: the sphere is centered at the world origin
-  let sphere_to_ray = ray.origin.substract(point(0, 0, 0));
+  // remember: substracting two points gives a vector
+  let sphere_to_ray = ray2.origin.substract(point(0, 0, 0));
 
-  let a = dot(ray.direction, ray.direction);
-  let b = 2 * dot(ray.direction, sphere_to_ray);
+  let a = dot(ray2.direction, ray2.direction);
+  let b = 2 * dot(ray2.direction, sphere_to_ray);
   let c = dot(sphere_to_ray, sphere_to_ray) - 1;
   let discriminant = (b**2) - 4 * a * c;
 
@@ -34,7 +39,10 @@ export function intersects(sphere, ray) {
   let t1 = (-b - Math.sqrt(discriminant)) / (2 * a);
   let t2 = (-b + Math.sqrt(discriminant)) / (2 * a);
 
-  return t1 < t2 ? [t1, t2] : [t2, t2];
+  let i1 = intersection(t1, sphere);
+  let i2 = intersection(t2, sphere);
+
+  return t1 < t2 ? [i1, i2] : [i2, i1];
 }
 
 export function transform(ray, matrix) {
