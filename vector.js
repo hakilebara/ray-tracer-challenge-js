@@ -1,5 +1,15 @@
 import { Tuple, tuple } from './tuple.js';
 
+export function normalize(v) {
+  let magnitude = v.magnitude();
+  return tuple(
+    v.x / magnitude,
+    v.y / magnitude,
+    v.z / magnitude,
+    v.w / magnitude
+  );
+}
+
 export class Vector extends Tuple {
   normalize() {
     let magnitude = this.magnitude();
